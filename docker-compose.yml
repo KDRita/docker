@@ -21,9 +21,8 @@ services:
     container_name: Logstashs
     restart: always
     volumes:
-    - ./docker-compose.yml:/usr/share/logstash/config/
-      - ./criteres.conf:/usr/share/logstash/pipeline/
-    command: /usr/share/logstash/config/ -f /logstash_dir/logstash.txt
+    -./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    -./logstash/pipeline:/usr/share/logstash/pipeline
     depends_on:
       - Elasticsearch
     ports:
