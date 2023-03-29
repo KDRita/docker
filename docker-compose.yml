@@ -5,7 +5,7 @@ services:
     container_name: elasticsearch
     restart: always
     volumes:
-    - elastic_data:/usr/share/elasticsearch/data/
+    - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/data/
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       discovery.type: single-node  
@@ -22,7 +22,7 @@ services:
     restart: always
     volumes:
     -./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
-    -./logstash/pipeline:/usr/share/logstash/pipeline
+    -./pipeline/logstash.conf:/usr/share/logstash/pipeline
     depends_on:
       - Elasticsearch
     ports:
@@ -45,7 +45,7 @@ services:
     networks:
       - elk
 volumes:
-  elastic_data: {}
+  -./kibana/config/kibana.yml:/usr/share/kibana/data
 
 networks:
   elk:
